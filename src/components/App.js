@@ -1,45 +1,35 @@
 import '../styles/App.sass';
 import { useEffect, useState } from 'react';
 import getPodcast from '../services/api';
+import List from './List';
 
 function App() {
   const [data, setData] = useState([]);
+  const [userSearch, setUserSearch] = useState('')
   useEffect(() => {
     getPodcast().then(response => {
-        console.log('desde app', response)
         setData(response)
     })
   }, []);
-  const printList = () =>{
-    return data.map((podcast)=>{
-      return(
-        <li key={podcast.id} className='list__podcast'>
-          <img className='list__podcast__img' src={podcast.img} alt={`imagen ${podcast.title}`} />
-          <div className='list__podcast__text'>
-            <h6>{podcast.title}</h6>
-            <span>Author: {podcast.author}</span>
-          </div>
-        </li>
-      )
-    })
+  const handleSearch = (ev) =>{
+    setUserSearch(ev.currentTarget.value)
   }
-
+  const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
 
   return (
     <div className='ppal_container'>
       <header>
         <h1 className="title">Podcaster</h1>
+        <hr className='separator'/>
       </header>
       <main>
         <section className="searcher">
-          <span className='searcher__results'>{data.length}</span>
+          <span className='searcher__results flex_column_center'>{data.length}</span>
           <label>
-            <input type="text" placeholder="Filter podcast"/>
+            <input className='searcher__input' type="text" placeholder="Filter podcast" onKeyUp={handleSearch}/>
           </label>
         </section>
-        <section>
-          <ul className='list'>{printList()}</ul>
-        </section>
+        <List data={podcastFiltered}/>
       </main>
     </div>
   );
