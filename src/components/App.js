@@ -36,7 +36,7 @@ function App() {
   const handleSearch = (ev) =>{
     setUserSearch(ev.currentTarget.value)
   }
-  const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
+  const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase())|| podcast.author.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
 
   return (
     <div className='ppal_container'>
