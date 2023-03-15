@@ -1,17 +1,13 @@
-// import '../styles/App.sass';
+import '../styles/App.sass';
 import { useEffect } from 'react';
-// import getPodcast from '../services/api';
+import GetPodcast from '../services/api';
 
 function App() {
-  // const [data, setData] = useState([]);
+//   const [data, setData] = useState([]);
   useEffect(() => {
-    console.log('eeeee')
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/us/rss/toppodcasts/limit=10/genre=1310/json')}`)
-    .then(response => {
-      if (response.ok) return response.json()
-      throw new Error('Network response was not ok.')
+    GetPodcast().then(response => {
+        console.log('desde app', response)
     })
-    .then(data => console.log(data.contents)); 
   }, []);
 
   // function printList(){
