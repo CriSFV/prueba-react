@@ -1,8 +1,12 @@
+@import './core/reset.sass';
+@import './core/variables.sass';
+
+
 .ppal_container
-  padding: 1em
+  padding: 2rem
 .title 
   color: #3939ab
-  font-size: 12px
+  font-size: 16px
 .searcher
   display: flex
   justify-content: flex-end
@@ -13,3 +17,28 @@
     color: white
     margin: 0 5px 0 0 
     font-size: 10px
+.list
+  list-style-type: none
+  display: flex
+  flex-wrap: wrap
+  &__podcast
+    margin: 5px
+    display: flex
+    flex-direction: column
+    align-items: center
+    &__img
+      border-radius: 50%
+      height: 110px
+      width: 110px
+      transform: translateY(28px)
+    &__text
+      box-shadow: -3px 5px 2px -1px rgba(52, 52, 53, 0.2)
+      border: 1px solid rgba(52, 52, 53, 0.2)
+      border-radius: 5px
+      padding: 5px
+      height: 100px
+      width: 200px
+      text-align: center
+      display: flex
+      flex-direction: column
+      justify-content: center

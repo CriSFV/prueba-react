@@ -1,6 +1,6 @@
 // https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json
 
-const GetPodcast = () => {
+const getPodcast = () => {
   return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')}`)
   .then(response => {
     if (response.ok) return response.json()
@@ -19,4 +19,4 @@ const GetPodcast = () => {
       })
   }); 
 }
-export default GetPodcast;
+export default getPodcast;
