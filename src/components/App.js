@@ -7,31 +7,29 @@ import List from './List';
 function App() {
   const [data, setData] = useState([]);
   const [userSearch, setUserSearch] = useState('');
-  const localSotorageDate = localStorage.get('date','');
-  const [userDate, setUserDate] = useState(localSotorageDate)
-
+  
   useEffect(() => {
-    const today = new Date().toLocaleDateString()
-    if(today !== localSotorageDate){
-      setUserDate(today)
-      localStorage.remove('date')
-      localStorage.set('date', userDate)
-    } else{
-      const data = localStorage.get('podcastData','')
-      setData(data)
-    }
-  },[]);
-
-  useEffect(() => {
-    getPodcast().then(response => {
-        setData(response)
-        
+    const today = new Date()
+    const todayMilliseconds = today.getTime()
+    const localStorageDate = localStorage.get('date','');
+    const millisecodsDay = 86400000
+    const elapsedTime = todayMilliseconds - +localStorageDate
+    console.log(elapsedTime)
+    console.log(elapsedTime >= millisecodsDay)
+    if(elapsedTime >= millisecodsDay){
+      console.log('ha pasado más de un día');
+      getPodcast().then(response => {
+        setData(response)        
+        localStorage.remove('date')
+        localStorage.set('date', todayMilliseconds)
         localStorage.remove('podcastData')
         localStorage.set('podcastData', response)
-    })
-  }, [userDate]);
-
-
+      })
+    } else{
+      console.log('no ha pasado más de un día');
+      setData(localStorage.get('podcastData',[]))
+    }
+  },[]);
 
   const handleSearch = (ev) =>{
     setUserSearch(ev.currentTarget.value)
