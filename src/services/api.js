@@ -23,14 +23,14 @@ const getPodcasts = () => {
 
 const getPodcastInfo = (id) => {
   // id podcast === collectionID en fetch
-  return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`)}`)
+  return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode`)}`)
 .then(response => {
 	if (response.ok) return response.json()
 	throw new Error('Network response was not ok.')
 })
 .then(data => {
   const resp = JSON.parse(data.contents);
-  console.log(resp.results)
+  console.log(resp)
   return resp.results
 })
 }

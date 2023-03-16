@@ -50,6 +50,7 @@ function App() {
   const handleUserSelect = (ev) =>{
     console.log('recibo',ev)
     const podcast = data.find(pod => pod.id === ev)
+    localStorage.set(`podcast_${podcast.id}`,podcast)
     setPodcast(podcast)
   };
   const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase())|| podcast.author.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
@@ -64,7 +65,7 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
-        <Route path='/podcast/:id' element={<PodcastDetail data={podcastSelected} podcast={podcast}/>}  />
+        <Route path='/podcast/:id' element={<PodcastDetail episodes={podcastSelected} podcast={podcast}/>}  />
           
       </Routes>
     </div>
