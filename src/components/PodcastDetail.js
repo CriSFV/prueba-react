@@ -21,11 +21,11 @@ const PodcastDetail = (props) =>{
       const episodeDate = new Date (episode.releaseDate)
       const time = episode.trackTimeMillis / 1000
       return(
-        <tr key={episode.trackId} id={episode.trackId}> 
-          <td><Link to={`/podcast/episode/${episode.trackId}`}>{episode.trackName} </Link></td>
-          <td> {episodeDate.toLocaleDateString()} </td>
-          <td> {convertTime(time)} </td>
-        </tr>
+          <tr key={episode.trackId} id={episode.trackId}>
+            <td><Link to={`/podcast/episode/${episode.trackId}`}>{episode.trackName} </Link></td>
+            <td> {episodeDate.toLocaleDateString()} </td>
+            <td> {convertTime(time)} </td>
+          </tr>
       )
     })
   }
@@ -36,11 +36,13 @@ const PodcastDetail = (props) =>{
     <section>
       <h2 className='box-shadow detail__episodes'>Episodes: {props.episodes.length ? props.episodes.length-1:0} </h2>
       <table className='box-shadow detail__table'>
-        <tr>
-          <th><b>Title</b></th>
-          <th><b>Date</b></th>
-          <th><b>Duration</b></th>
-        </tr>
+        <thead>
+          <tr>
+            <th><b>Title</b></th>
+            <th><b>Date</b></th>
+            <th><b>Duration</b></th>
+          </tr>
+        </thead>
         {props.episodes.length ? printTable(): ''}
       </table>
 
