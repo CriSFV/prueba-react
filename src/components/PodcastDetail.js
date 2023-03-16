@@ -43,7 +43,7 @@ const PodcastDetail = (props) =>{
             <th><b>Duration</b></th>
           </tr>
         </thead>
-        {props.episodes.length ? printTable(): ''}
+        <tbody>{props.episodes.length ? printTable(): ''}</tbody>
       </table>
 
     </section>

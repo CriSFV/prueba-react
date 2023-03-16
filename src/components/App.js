@@ -17,9 +17,10 @@ function App() {
   
   useEffect(() => {
     if(podcast){
-
+      setIsLoading(true)
       getApiInfo.getPodcastInfo(podcast.id).then(resp => {
         setPodcastSelected(resp)
+        setIsLoading(false)
       })
 
     }
