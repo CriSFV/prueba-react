@@ -1,10 +1,11 @@
 import '../styles/App.sass';
 import { useEffect, useState } from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
 import getApiInfo from '../services/api';
 import localStorage from '../services/localStorage'
 import Home from './Home';
 import PodcastDetail from './PodcastDetail';
-import { Link, Route, Routes } from 'react-router-dom';
+// import EpisodeDetail from './EpisodeDetail';
 
 function App() {
   const [data, setData] = useState([]);

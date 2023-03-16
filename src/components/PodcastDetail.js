@@ -1,4 +1,6 @@
 import '../styles/PodcastDetail.sass';
+import PodcastCard from './PodcastCard';
+import { Link } from 'react-router-dom';
 
 const PodcastDetail = (props) =>{
   console.log(props);
@@ -19,8 +21,8 @@ const PodcastDetail = (props) =>{
       const episodeDate = new Date (episode.releaseDate)
       const time = episode.trackTimeMillis / 1000
       return(
-        <tr key={episode.trackId}> 
-          <td>{episode.trackName} </td>
+        <tr key={episode.trackId} id={episode.trackId}> 
+          <td><Link to={`/podcast/episode/${episode.trackId}`}>{episode.trackName} </Link></td>
           <td> {episodeDate.toLocaleDateString()} </td>
           <td> {convertTime(time)} </td>
         </tr>
@@ -30,19 +32,7 @@ const PodcastDetail = (props) =>{
 
   return(
     <div className='podcastDetail__container'>
-    <section className='podcast'>
-      <div className="podcast__img"><img src={props.podcast.img} alt={`imagen_ ${props.podcast.title}`} /></div>
-      <hr />
-      <div className="podcast__text">
-        <h4 className='podcast__title'>{props.podcast.title}</h4>
-        <span className='podcast__author'><i> by {props.podcast.author} </i></span>
-      </div>
-      <hr />
-      <div className="podcast__text">
-        <h4><b>Description:</b></h4>
-        <span><i> {props.podcast.summary} </i></span>
-      </div>
-    </section>
+      <PodcastCard podcast={props.podcast}/>
     <section>
       <h2 className='box-shadow detail__episodes'>Episodes: {props.episodes.length ? props.episodes.length-1:0} </h2>
       <table className='box-shadow detail__table'>
