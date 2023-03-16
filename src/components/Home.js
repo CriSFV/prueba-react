@@ -7,7 +7,6 @@ const Home = (props) => {
     props.handleSearch(ev.currentTarget.value)
   }
   const handleUserSelect = (ev) => {
-    console.log('home:', ev);
     props.handleUserSelect(ev)
   }
   return(
