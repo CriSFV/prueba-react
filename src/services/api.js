@@ -1,6 +1,6 @@
 // https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json
 
-const getPodcast = () => {
+const getPodcasts = () => {
   return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')}`)
   .then(response => {
     if (response.ok) return response.json()
@@ -14,9 +14,17 @@ const getPodcast = () => {
           id: podcast.id.attributes['im:id'],
           title: podcast['im:name'].label,
           author: podcast['im:artist'].label,
-          img: podcast['im:image'][2].label
+          img: podcast['im:image'][2].label,
+          summary: podcast.summary.label
         }
       })
   }); 
-}
-export default getPodcast;
+};
+const getPodcastInfo = () => {
+  console.log('id info podcast')
+};
+const getApiInfo = {
+  getPodcasts: getPodcasts,
+  getPodcastInfo: getPodcastInfo
+};
+export default getApiInfo;

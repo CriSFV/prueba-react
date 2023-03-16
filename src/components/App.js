@@ -1,12 +1,14 @@
 import '../styles/App.sass';
 import { useEffect, useState } from 'react';
-import getPodcast from '../services/api';
+import getApiInfo from '../services/api';
 import localStorage from '../services/localStorage'
-import List from './List';
+import Home from './Home';
+import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
   const [data, setData] = useState([]);
   const [userSearch, setUserSearch] = useState('');
+  const [podcastSelected, setPodcastSelected] = useState('')
   
   useEffect(() => {
     const today = new Date()
@@ -18,7 +20,7 @@ function App() {
     console.log(elapsedTime >= millisecodsDay)
     if(elapsedTime >= millisecodsDay){
       console.log('ha pasado más de un día');
-      getPodcast().then(response => {
+      getApiInfo.getPodcasts().then(response => {
         setData(response)        
         localStorage.remove('date')
         localStorage.set('date', todayMilliseconds)
@@ -31,25 +33,39 @@ function App() {
     }
   },[]);
 
+  useEffect(() => {
+    console.log('cambia podcastSelected', podcastSelected)
+  },[podcastSelected])
+
   const handleSearch = (ev) =>{
-    setUserSearch(ev.currentTarget.value)
-  }
+    setUserSearch(ev)
+  };
+  const handleUserSelect = (ev) =>{
+    console.log('recibo',ev)
+    setPodcastSelected(ev)
+  };
   const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase())|| podcast.author.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
 
   return (
     <div className='ppal_container'>
       <header>
-        <h1 className="title">Podcaster</h1>
+        <nav>
+          <Link to='/' className="title">Podcaster</Link>
+        </nav>
         <hr className='separator'/>
       </header>
+      <Routes>
+        <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
+        <Route path='/podcast/:id'/>
+      </Routes>
       <main>
-        <section className="searcher">
-          <span className='searcher__results flex_column_center'>{podcastFiltered.length}</span>
-          <label>
-            <input className='searcher__input' type="text" placeholder="Filter podcast" onKeyUp={handleSearch}/>
-          </label>
-        </section>
-        <List data={podcastFiltered}/>
+        {/* <span className='searcher__results flex_column_center'>{podcastFiltered.length}</span>
+        <label>
+          <input className='searcher__input' type="text" placeholder="Filter podcast" onKeyUp={handleSearch}/>
+        </label> */}
+        {/* <section className="searcher">
+        </section> */}
+        {/* <List data={podcastFiltered} handleSearch={handleSearch}/> */}
       </main>
     </div>
   );
