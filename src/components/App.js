@@ -59,7 +59,10 @@ function App() {
       setData(localStorage.get('podcastData',[]))
     }
   },[]);
-
+  const handleLoading = (ev) => {
+    console.log('handleloading desde app', ev)
+    setIsLoading(ev)
+  }
 
   const handleSearch = (ev) =>{
     setUserSearch(ev)
@@ -90,7 +93,7 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
-        <Route path='/podcast/:podcastId' element={<PodcastDetail podcast={podcast}/>}  />
+        <Route path='/podcast/:podcastId' element={<PodcastDetail podcast={podcast} handleLoading={handleLoading}/>}  />
           
       </Routes>
     </div>

@@ -5,25 +5,33 @@ import PodcastCard from './PodcastCard';
 import { useEffect, useState } from 'react';
 import getApiInfo from '../services/api';
 
-const PodcastDetail = () =>{
+const PodcastDetail = (props) =>{
   const {podcastId} = useParams();
   const [podcastToRender, setPodcastSelected] = useState([]);
   // const [podcastLs, setPodcastLs] = useState();
   const podcast = localStorage.get('podcastSelected')
+  const loading = (ev) => {
+    console.log(props)
+    console.log(ev)
+    props.handleLoading(ev)
+  }
   useEffect(() => {
     // setPodcastLs(podcast)
       // setIsLoading(true)
       console.log(podcast)
+      loading(true)
       const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
         console.log('podcast no guardado en ls');
         getApiInfo.getPodcastInfo(podcast.id).then(resp => {
           setPodcastSelected(resp)
           localStorage.set(`podcast_${podcast.id}`,resp)
+          loading(false)
           // setIsLoading(false)
         })
       }else{
         setPodcastSelected(podcastDetailLs)
+        loading(false)
         // setIsLoading(false)
       }
 
@@ -63,7 +71,7 @@ const PodcastDetail = () =>{
     <div className='podcastDetail__container'>
       <PodcastCard podcast={podcast}/>
     <section>
-      <h2 className='box-shadow detail__episodes'>Episodes:  </h2>
+      <h2 className='box-shadow detail__episodes'>Episodes: {podcastToRender.length ? podcastToRender.length-1 : '-'} </h2>
       <table className='box-shadow detail__table'>
         <thead>
           <tr>
