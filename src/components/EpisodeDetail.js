@@ -12,7 +12,6 @@ const EpisodeDetail = () =>{
   useEffect(() => {
     const episode0 = localStorage.get(`podcast_${podcastId}`).filter(x => x.trackId === parseInt(episodeId) )
     setEpisode(episode0[0])
-    console.log(episode0[0])
 },[])
 
   return(

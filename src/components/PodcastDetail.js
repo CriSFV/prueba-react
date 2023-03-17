@@ -17,11 +17,9 @@ const PodcastDetail = (props) =>{
   },[loading]);
   useEffect(() => {
 
-      console.log(podcast)
       setLoading(true)
       const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
-        console.log('podcast no guardado en ls');
         getApiInfo.getPodcastInfo(podcast.id).then(resp => {
           setPodcastSelected(resp)
           localStorage.set(`podcast_${podcast.id}`,resp)
