@@ -1,50 +1,15 @@
 @import './core/variables.sass';
-.lds-ellipsis
+
+.loading 
   display: inline-block
-  position: relative
-  width: 50px
-  height: 50px
-.lds-ellipsis div
-  position: absolute
-  top: 35px
-  width: 10px
-  height: 10px
+  width: 20px
+  height: 20px
+  border: 3px solid $textColorPpal
   border-radius: 50%
-  background: #30407a
-  box-sizing: border-box
-.lds-ellipsis-div:nth-child(1)
-  left: 8px
-  animation: lds-ellipsis1 0.5s infinite
-  animation-timing-function: ease
-  animation-delay: 0s
-  animation-iteration-count: infinite
-  animation-direction: normal
-  animation-fill-mode: none
-  animation-play-state: running
-  animation-name: lds-ellipsis1
-.lds-ellipsis div:nth-child(2)
-  left: 8px
-  animation: lds-ellipsis2 0.5s infinite
-.lds-ellipsis div:nth-child(3)
-  left: 32px
-  animation: lds-ellipsis2 0.5s infinite
-.lds-ellipsis div:nth-child(4)
-  left: 56px
-  animation: lds-ellipsis3 0.5s infinite
-@keyframes lds-ellipsis1
-  0%
-    transform: scale(0)
-  100%
-    transform: scale(1)
+  border-top-color: #fff
+  animation: spin 1s ease-in-out infinite
+  -webkit-animation: spin 1s ease-in-out infinite
 
-@keyframes lds-ellipsis3
-  0%
-    transform: scale(1)
+@keyframes spin 
   100%
-    transform: scale(0)
-@keyframes lds-ellipsis2
-  0%
-    transform: translate(0, 0)
-
-  100%
-    transform: translate(24px, 0)
+     -webkit-transform: rotate(360deg)
