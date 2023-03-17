@@ -13,11 +13,10 @@ const PodcastDetail = (props) =>{
   const podcast = localStorage.get('podcastSelected')
   const {handleLoading} = props
   useEffect(()=>{
-    handleLoading(loading)
+    handleLoading(loading) // eslint-disable-next-line
   },[loading]);
   useEffect(() => {
-
-      console.log(podcast)
+      console.log(podcast)// eslint-disable-next-line
       setLoading(true)
       const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
@@ -51,8 +50,8 @@ const PodcastDetail = (props) =>{
             const episodeDate = new Date (episode.releaseDate)
             const time = episode.trackTimeMillis / 1000
             return(
-                  <tr key={episode.trackId} id={episode.trackId}>
-                    <td><Link to={`/podcast/${podcastId}/episode/${episode.trackId}`}>{episode.trackName}</Link></td>
+                  <tr key={episode.trackId} id={episode.trackId} className='table_tr'>
+                    <td><Link to={`/podcast/${podcastId}/episode/${episode.trackId}`} className='list-decoration-none'>{episode.trackName}</Link></td>
                     <td>{episodeDate.toLocaleDateString()}</td>
                     <td>{convertTime(time)}</td>
                   </tr>

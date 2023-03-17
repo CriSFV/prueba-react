@@ -10,10 +10,11 @@ const EpisodeDetail = () =>{
   const [episode, setEpisode] = useState({})
 
   useEffect(() => {
-    const episode0 = localStorage.get(`podcast_${podcastId}`).filter(x => x.trackId === parseInt(episodeId) )
-    setEpisode(episode0[0])
-    console.log(episode0[0])
-},[])
+    const episode0 = localStorage.get(`podcast_${podcastId}`).filter(x => x.trackId === parseInt(episodeId) ) // eslint-disable-next-line
+     
+    setEpisode(episode0[0])  // eslint-disable-next-line
+    console.log(episode0[0])  // eslint-disable-next-line
+},[episodeId])
 
   return(
     <div className='podcastDetail__container'>
