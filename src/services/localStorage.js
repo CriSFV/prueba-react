@@ -20,12 +20,15 @@ const get = (key, defaultValue) => {
     localStorage.removeItem(key);
   };
   
-
+  const clear = () => {
+  localStorage.clear();
+};
 
   const objectToExport = {
     get: get,
     set: set,
     remove: remove,
+    clear: clear
   };
   
   export default objectToExport;

@@ -11,41 +11,51 @@ import PodcastDetail from './PodcastDetail';
 function App() {
   const [data, setData] = useState([]);
   const [userSearch, setUserSearch] = useState('');
-  const [podcast, setPodcast] = useState('');
-  const [podcastSelected, setPodcastSelected] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [podcast, setPodcast] = useState(''); // podcast seleccionado por el usuario
+  // const [podcastSelected, setPodcastSelected] = useState([]); // detalle de podcast
+  const [isLoading, setIsLoading] = useState(false);
+
   
-  useEffect(() => {
-    if(podcast){
-      setIsLoading(true)
-      getApiInfo.getPodcastInfo(podcast.id).then(resp => {
-        setPodcastSelected(resp)
-        setIsLoading(false)
-      })
+  // useEffect(() => {
+  //   if(podcast){
+  //     setIsLoading(true)
+  //     const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
+  //     if(podcastDetailLs === null){
+  //       console.log('podcast no guardado en ls');
+  //       getApiInfo.getPodcastInfo(podcast.id).then(resp => {
+  //         setPodcastSelected(resp)
+  //         localStorage.set(`podcast_${podcast.id}`,resp)
+  //         setIsLoading(false)
+  //       })
+  //     }else{
+  //       setPodcastSelected(podcastDetailLs)
+  //       setIsLoading(false)
+  //     }
 
-    }
-  },[podcast])
+  //   }
+  // },[podcast])
 
   useEffect(() => {
+    // Compruebo si ha pasado más de un día, para hacer petición o coger los datos del localStorage
     const today = new Date()
     const todayMilliseconds = today.getTime()
     const localStorageDate = localStorage.get('date','');
     const millisecodsDay = 86400000
     const elapsedTime = todayMilliseconds - +localStorageDate
+    console.log('ha pasado más de un día?:',elapsedTime >= millisecodsDay);
     if(elapsedTime >= millisecodsDay){
-      console.log('ha pasado más de un día');
+      console.log('Nueva petición');
       setIsLoading(true)
       getApiInfo.getPodcasts().then(response => {
         setIsLoading(false)
-        setData(response)        
-        localStorage.remove('date')
+        setData(response)  
+        localStorage.clear()  
         localStorage.set('date', todayMilliseconds)
-        localStorage.remove('podcastData')
         localStorage.set('podcastData', response)
       })
     } else{
       setIsLoading(false)
-      console.log('no ha pasado más de un día');
+      console.log('Get info localStorage');
       setData(localStorage.get('podcastData',[]))
     }
   },[]);
@@ -55,17 +65,14 @@ function App() {
     setUserSearch(ev)
   };
   const handleUserSelect = (ev) =>{
-    console.log('recibo',ev)
     const podcast = data.find(pod => pod.id === ev)
-    localStorage.set(`podcast_${podcast.id}`,podcast)
+    localStorage.set('podcastSelected', podcast)
     setPodcast(podcast)
   };
   const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase())|| podcast.author.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
 
   const Loading = () =>{
-    console.log('entro a loading');
     if(isLoading){
-      console.log('entro a loading true');
       return (
         <Loader/>
       )
@@ -83,7 +90,7 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
-        <Route path='/podcast/:id' element={<PodcastDetail episodes={podcastSelected} podcast={podcast}/>}  />
+        <Route path='/podcast/:podcastId' element={<PodcastDetail podcast={podcast}/>}  />
           
       </Routes>
     </div>

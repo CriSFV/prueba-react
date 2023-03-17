@@ -1,10 +1,34 @@
 import '../styles/PodcastDetail.sass';
+import { Link, useParams } from 'react-router-dom';
+import localStorage from '../services/localStorage'
 import PodcastCard from './PodcastCard';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import getApiInfo from '../services/api';
 
-const PodcastDetail = (props) =>{
-  console.log(props);
-  
+const PodcastDetail = () =>{
+  const {podcastId} = useParams();
+  const [podcastToRender, setPodcastSelected] = useState([]);
+  // const [podcastLs, setPodcastLs] = useState();
+  const podcast = localStorage.get('podcastSelected')
+  useEffect(() => {
+    // setPodcastLs(podcast)
+      // setIsLoading(true)
+      console.log(podcast)
+      const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
+      if(podcastDetailLs === null){
+        console.log('podcast no guardado en ls');
+        getApiInfo.getPodcastInfo(podcast.id).then(resp => {
+          setPodcastSelected(resp)
+          localStorage.set(`podcast_${podcast.id}`,resp)
+          // setIsLoading(false)
+        })
+      }else{
+        setPodcastSelected(podcastDetailLs)
+        // setIsLoading(false)
+      }
+
+  },[])
+
   const convertTime = (seconds)=>{
     var hour = Math.floor(seconds / 3600);
     hour = (hour < 10)? '0' + hour : hour;
@@ -16,25 +40,30 @@ const PodcastDetail = (props) =>{
   }
 
   const printTable = ()=>{
-    props.episodes.shift()
-    return props.episodes.map((episode)=>{
-      const episodeDate = new Date (episode.releaseDate)
-      const time = episode.trackTimeMillis / 1000
-      return(
-          <tr key={episode.trackId} id={episode.trackId}>
-            <td><Link to={`/podcast/episode/${episode.trackId}`}>{episode.trackName} </Link></td>
-            <td> {episodeDate.toLocaleDateString()} </td>
-            <td> {convertTime(time)} </td>
-          </tr>
+    //const track = podcastToRender.find(epi=>epi.wrapperType === 'track')
+      return (
+        podcastToRender.map((episode)=>{
+          if(episode.wrapperType==='podcastEpisode'){
+            const episodeDate = new Date (episode.releaseDate)
+            const time = episode.trackTimeMillis / 1000
+            return(
+                  <tr key={episode.trackId} id={episode.trackId}>
+                    <td><Link to={`/podcast/${podcastId}/episode/${episode.trackId}`}>{episode.trackName}</Link></td>
+                    <td>{episodeDate.toLocaleDateString()}</td>
+                    <td>{convertTime(time)}</td>
+                  </tr>
+                )
+            }
+            return console.log('')
+          })
       )
-    })
   }
 
   return(
     <div className='podcastDetail__container'>
-      <PodcastCard podcast={props.podcast}/>
+      <PodcastCard podcast={podcast}/>
     <section>
-      <h2 className='box-shadow detail__episodes'>Episodes: {props.episodes.length ? props.episodes.length-1:0} </h2>
+      <h2 className='box-shadow detail__episodes'>Episodes:  </h2>
       <table className='box-shadow detail__table'>
         <thead>
           <tr>
@@ -43,7 +72,7 @@ const PodcastDetail = (props) =>{
             <th><b>Duration</b></th>
           </tr>
         </thead>
-        <tbody>{props.episodes.length ? printTable(): ''}</tbody>
+        <tbody>{printTable()}</tbody>
       </table>
 
     </section>
