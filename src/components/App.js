@@ -6,7 +6,7 @@ import localStorage from '../services/localStorage'
 import Home from './Home';
 import Loader from './Loader';
 import PodcastDetail from './PodcastDetail';
-// import EpisodeDetail from './EpisodeDetail';
+import EpisodeDetail from './EpisodeDetail';
 
 function App() {
   const [data, setData] = useState([]);
@@ -94,7 +94,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
         <Route path='/podcast/:podcastId' element={<PodcastDetail podcast={podcast} handleLoading={handleLoading}/>}  />
-          
+          <Route path='/podcast/:podcastId/episode/:episodeId' element={<EpisodeDetail/>} />
       </Routes>
     </div>
   );

@@ -1,11 +1,12 @@
+import { Link } from 'react-router-dom';
 
 const PodcastCard = (props) => {
   return(
     <section className='podcast'>
-      <div className="podcast__img"><img src={props.podcast.img} alt={`imagen_ ${props.podcast.title}`} /></div>
+      <div className="podcast__img"><Link to={`/podcast/${props.podcast.id}`}><img src={props.podcast.img} alt={`imagen_ ${props.podcast.title}`} /></Link></div>
       <hr />
       <div className="podcast__text">
-        <h4 className='podcast__title'>{props.podcast.title}</h4>
+        <h4 className='podcast__title'><Link to={`/podcast/${props.podcast.id}`}>{props.podcast.title}</Link></h4>
         <span className='podcast__author'><i> by {props.podcast.author} </i></span>
       </div>
       <hr />

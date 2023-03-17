@@ -5,34 +5,31 @@ import PodcastCard from './PodcastCard';
 import { useEffect, useState } from 'react';
 import getApiInfo from '../services/api';
 
+
 const PodcastDetail = (props) =>{
   const {podcastId} = useParams();
   const [podcastToRender, setPodcastSelected] = useState([]);
-  // const [podcastLs, setPodcastLs] = useState();
+  const [loading, setLoading] = useState(true);
   const podcast = localStorage.get('podcastSelected')
-  const loading = (ev) => {
-    console.log(props)
-    console.log(ev)
-    props.handleLoading(ev)
-  }
+  const {handleLoading} = props
+  useEffect(()=>{
+    handleLoading(loading)
+  },[loading]);
   useEffect(() => {
-    // setPodcastLs(podcast)
-      // setIsLoading(true)
+
       console.log(podcast)
-      loading(true)
+      setLoading(true)
       const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
         console.log('podcast no guardado en ls');
         getApiInfo.getPodcastInfo(podcast.id).then(resp => {
           setPodcastSelected(resp)
           localStorage.set(`podcast_${podcast.id}`,resp)
-          loading(false)
-          // setIsLoading(false)
+          setLoading(false)
         })
       }else{
         setPodcastSelected(podcastDetailLs)
-        loading(false)
-        // setIsLoading(false)
+        setLoading(false)
       }
 
   },[])
@@ -48,7 +45,6 @@ const PodcastDetail = (props) =>{
   }
 
   const printTable = ()=>{
-    //const track = podcastToRender.find(epi=>epi.wrapperType === 'track')
       return (
         podcastToRender.map((episode)=>{
           if(episode.wrapperType==='podcastEpisode'){
