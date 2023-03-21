@@ -1,7 +1,7 @@
 // https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json
 
-const getPodcasts = () => {
-  return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')}`)
+const getPodcasts = async () => {
+  return await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json')}`)
   .then(response => {
     if (response.ok) return response.json()
     throw new Error('Network response was not ok.')
@@ -31,7 +31,17 @@ const getPodcastInfo = (id) => {
 .then(data => {
   const resp = JSON.parse(data.contents);
   console.log(resp)
-  return resp.results
+  // return resp.results
+  return resp.results.map((episode)=>{
+    return {
+      wrapperType: episode.wrapperType,
+      releaseDate: episode.releaseDate,
+      trackTimeMillis: episode.trackTimeMillis,
+      trackId: episode.trackId,
+      trackName: episode.trackName,
+      episodeUrl: episode.episodeUrl
+    }
+  })
 })
 }
 

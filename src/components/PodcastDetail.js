@@ -14,7 +14,7 @@ const PodcastDetail = (props) =>{
   const [loading, setLoading] = useState(true);
   const podcast = localStorage.get('podcastSelected')
   const {handleLoading} = props
-
+console.log(podcast)
   useEffect(()=>{
     handleLoading(loading) // eslint-disable-next-line
   },[loading]);
@@ -87,7 +87,6 @@ const PodcastDetail = (props) =>{
 }
 PodcastDetail.propTypes = {
   handleLoading: PropTypes.func.isRequired,
-  podcast: PropTypes.object
 }
 
 export default PodcastDetail

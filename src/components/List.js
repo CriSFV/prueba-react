@@ -30,7 +30,7 @@ const List = (props) => {
 
 List.propTypes = {
   data: PropTypes.array.isRequired,
-  handleUserSelect: PropTypes.func.isRequired
+  handleUserSelect: PropTypes.func
 }
 
 export default List
