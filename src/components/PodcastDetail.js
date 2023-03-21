@@ -4,7 +4,7 @@ import localStorage from '../services/localStorage'
 import PodcastCard from './PodcastCard';
 import { useEffect, useState } from 'react';
 import getApiInfo from '../services/api';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 
@@ -87,7 +87,7 @@ const PodcastDetail = (props) =>{
 }
 PodcastDetail.propTypes = {
   handleLoading: PropTypes.func.isRequired,
-  podcast: object
+  podcast: PropTypes.object
 }
 
 export default PodcastDetail
