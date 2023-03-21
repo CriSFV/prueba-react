@@ -12,15 +12,16 @@ const PodcastDetail = (props) =>{
   const [loading, setLoading] = useState(true);
   const podcast = localStorage.get('podcastSelected')
   const {handleLoading} = props
+
   useEffect(()=>{
     handleLoading(loading) // eslint-disable-next-line
   },[loading]);
+
   useEffect(() => {
-      console.log(podcast)// eslint-disable-next-line
+
       setLoading(true)
       const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
-        console.log('podcast no guardado en ls');
         getApiInfo.getPodcastInfo(podcast.id).then(resp => {
           setPodcastSelected(resp)
           localStorage.set(`podcast_${podcast.id}`,resp)
@@ -31,14 +32,14 @@ const PodcastDetail = (props) =>{
         setLoading(false)
       }
 
-  },[])
+  },[podcast.id])
 
   const convertTime = (seconds)=>{
-    var hour = Math.floor(seconds / 3600);
+    let hour = Math.floor(seconds / 3600);
     hour = (hour < 10)? '0' + hour : hour;
-    var minute = Math.floor((seconds / 60) % 60);
+    let minute = Math.floor((seconds / 60) % 60);
     minute = (minute < 10)? '0' + minute : minute;
-    var second = seconds % 60;
+    let second = seconds % 60;
     second = (second < 10)? '0' + second : second;
     return hour + ':' + minute + ':' + second;
   }

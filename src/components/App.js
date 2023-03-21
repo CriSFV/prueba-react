@@ -60,7 +60,6 @@ function App() {
     }
   },[]);
   const handleLoading = (ev) => {
-    console.log('handleloading desde app', ev)
     setIsLoading(ev)
   }
 
