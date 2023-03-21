@@ -1,6 +1,6 @@
 import '../styles/PodcastDetail.sass';
 import { Link, useParams } from 'react-router-dom';
-import localStorage from '../services/localStorage'
+import cache from '../services/cache'
 import PodcastCard from './PodcastCard';
 import { useEffect, useState } from 'react';
 import getApiInfo from '../services/api';
@@ -12,7 +12,7 @@ const PodcastDetail = (props) =>{
   const {podcastId} = useParams();
   const [podcastToRender, setPodcastSelected] = useState([]);
   const [loading, setLoading] = useState(true);
-  const podcast = localStorage.get('podcastSelected')
+  const podcast = cache.get('podcastSelected')
   const {handleLoading} = props
 console.log(podcast)
   useEffect(()=>{
@@ -22,11 +22,11 @@ console.log(podcast)
   useEffect(() => {
 
       setLoading(true)
-      const podcastDetailLs= localStorage.get(`podcast_${podcast.id}`, null)
+      const podcastDetailLs= cache.get(`podcast_${podcast.id}`, null)
       if(podcastDetailLs === null){
         getApiInfo.getPodcastInfo(podcast.id).then(resp => {
           setPodcastSelected(resp)
-          localStorage.set(`podcast_${podcast.id}`,resp)
+          cache.set(`podcast_${podcast.id}`,resp)
           setLoading(false)
         })
       }else{

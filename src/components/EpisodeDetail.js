@@ -1,16 +1,16 @@
 import PodcastCard from './PodcastCard';
-import localStorage from '../services/localStorage';
+import cache from '../services/cache';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
 const EpisodeDetail = () =>{
-  const podcast = localStorage.get('podcastSelected')
+  const podcast = cache.get('podcastSelected')
   const {episodeId, podcastId} = useParams()
   const [episode, setEpisode] = useState({})
 
   useEffect(() => {
-    const episode0 = localStorage.get(`podcast_${podcastId}`).filter(x => x.trackId === parseInt(episodeId) )
+    const episode0 = cache.get(`podcast_${podcastId}`).filter(x => x.trackId === parseInt(episodeId) )
     setEpisode(episode0[0])
 },[podcastId,episodeId])
 
