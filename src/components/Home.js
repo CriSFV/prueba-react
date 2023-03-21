@@ -1,4 +1,5 @@
 import '../styles/Home.sass';
+import PropTypes from 'prop-types';
 import List from './List';
 
 const Home = (props) => {
@@ -21,5 +22,8 @@ const Home = (props) => {
       <List data={props.data} handleUserSelect={handleUserSelect}/>
     </>
   )
+}
+Home.propTypes = {
+  data: PropTypes.array.isRequired
 }
 export default Home;

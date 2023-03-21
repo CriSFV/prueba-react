@@ -4,6 +4,8 @@ import localStorage from '../services/localStorage'
 import PodcastCard from './PodcastCard';
 import { useEffect, useState } from 'react';
 import getApiInfo from '../services/api';
+import PropTypes, { object } from 'prop-types';
+
 
 
 const PodcastDetail = (props) =>{
@@ -83,4 +85,9 @@ const PodcastDetail = (props) =>{
     </div>
   )
 }
+PodcastDetail.propTypes = {
+  handleLoading: PropTypes.func.isRequired,
+  podcast: object
+}
+
 export default PodcastDetail

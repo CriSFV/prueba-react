@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 const PodcastCard = (props) => {
   return(
@@ -17,6 +19,9 @@ const PodcastCard = (props) => {
     </section>
 
   )
+}
+PodcastCard.propTypes = {
+  podcast: PropTypes.object.isRequired,
 }
 
 export default PodcastCard

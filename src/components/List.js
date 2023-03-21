@@ -1,4 +1,5 @@
 import '../styles/List.sass';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const List = (props) => {
@@ -26,4 +27,10 @@ const List = (props) => {
     </section>
   )
 }
+
+List.propTypes = {
+  data: PropTypes.array.isRequired,
+  handleUserSelect: PropTypes.func.isRequired
+}
+
 export default List
