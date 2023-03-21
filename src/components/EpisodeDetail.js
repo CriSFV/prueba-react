@@ -16,13 +16,13 @@ const EpisodeDetail = () =>{
 
   return(
     <div className='podcastDetail__container'>
-    <PodcastCard podcast={podcast}/>
-  <section className='podcast'>
-    <h2>{episode.trackName}</h2>
-    <p>{episode.description}</p>
-    <audio className='audio__controls' src={episode.episodeUrl} controls></audio>
-  </section>
-  </div>
+      <PodcastCard podcast={podcast}/>
+      <section className='podcast'>
+        <h2>{episode.trackName}</h2>
+        <p>{episode.description}</p>
+        <audio className='audio__controls' src={episode.episodeUrl} controls></audio>
+      </section>
+    </div>
   )
 }
 export default EpisodeDetail
