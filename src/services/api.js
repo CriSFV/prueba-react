@@ -8,7 +8,6 @@ const getPodcasts = async () => {
   })
   .then((data) => {
       const resp = JSON.parse(data.contents);
-
       return resp.feed.entry.map((podcast)=>{
         return {
           id: podcast.id.attributes['im:id'],
@@ -21,16 +20,15 @@ const getPodcasts = async () => {
   }); 
 }
 
-const getPodcastInfo = (id) => {
+const getPodcastInfo = async (id) => {
   // id podcast === collectionID en fetch
-  return fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode`)}`)
+  return await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode`)}`)
 .then(response => {
 	if (response.ok) return response.json()
 	throw new Error('Network response was not ok.')
 })
 .then(data => {
   const resp = JSON.parse(data.contents);
-  console.log(resp)
   // return resp.results
   return resp.results.map((episode)=>{
     return {
@@ -39,7 +37,8 @@ const getPodcastInfo = (id) => {
       trackTimeMillis: episode.trackTimeMillis,
       trackId: episode.trackId,
       trackName: episode.trackName,
-      episodeUrl: episode.episodeUrl
+      episodeUrl: episode.episodeUrl,
+      description: episode.description
     }
   })
 })

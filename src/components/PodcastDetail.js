@@ -14,7 +14,6 @@ const PodcastDetail = (props) =>{
   const [loading, setLoading] = useState(true);
   const podcast = cache.get('podcastSelected')
   const {handleLoading} = props
-console.log(podcast)
   useEffect(()=>{
     handleLoading(loading) // eslint-disable-next-line
   },[loading]);
@@ -60,7 +59,7 @@ console.log(podcast)
                   </tr>
                 )
             }
-            return console.log('')
+            return ''
           })
       )
   }

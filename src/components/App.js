@@ -38,6 +38,7 @@ function App() {
       setData(cache.get('podcastData',[]))
     }
   },[]);
+
   const handleLoading = (ev) => {
     setIsLoading(ev)
   }
