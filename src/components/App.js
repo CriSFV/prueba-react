@@ -10,12 +10,12 @@ import EpisodeDetail from './EpisodeDetail';
 
 function App() {
   const [data, setData] = useState([]);
-  const [userSearch, setUserSearch] = useState('');
-  const [podcast, setPodcast] = useState(''); // podcast seleccionado por el usuario
+  const [userSearch, setUserSearch] = useState(''); 
+  const [podcast, setPodcast] = useState(''); // podcast user selected
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Compruebo si ha pasado más de un día, para hacer petición o coger los datos del localStorage
+    // check if more than one day has passed, if it's less than a day, get data from localStorage
     const today = new Date()
     const todayMilliseconds = today.getTime()
     const cacheDate = cache.get('date','');
@@ -42,15 +42,17 @@ function App() {
   const handleLoading = (ev) => {
     setIsLoading(ev)
   }
-
+  // recive input value
   const handleSearch = (ev) =>{
     setUserSearch(ev)
   };
+  // receive podcast user selection
   const handleUserSelect = (ev) =>{
     const podcast = data.find(pod => pod.id === ev)
     cache.set('podcastSelected', podcast)
     setPodcast(podcast)
   };
+  
   const podcastFiltered = userSearch===''? data : data.filter((podcast)=>podcast.title.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase())|| podcast.author.toLocaleLowerCase().includes(userSearch.toLocaleLowerCase()))
 
   const Loading = () =>{
