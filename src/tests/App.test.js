@@ -1,7 +1,9 @@
 
 import App from '../components/App';
+import Home from '../components/Home';
+
 import {  MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import getApiInfo from '../services/api';
 import ls from '../services/cache'
 import mockPodcast from './mocks';
@@ -58,5 +60,28 @@ describe('print list', ()=>{
 
     const component = render(<MemoryRouter> <EpisodeDetail/> </MemoryRouter>)
     expect(component.container).toHaveTextContent(mockPodcast.mockPodcastDetail.trackName)
+  });
+  
+});
+
+describe('input filter', ()=>{
+
+  test('input filter works showing length in the counter', ()=>{
+    getApiInfo.getPodcasts.mockResolvedValue(mockPodcast.mockPodcastList);
+    ls.get.mockReturnValue(mockPodcast.mockPodcastList)
+
+    const userSearch = jest.fn()
+
+    const component = render(<MemoryRouter> <App userSearch={userSearch}/> </MemoryRouter>)
+    const input = component.container.querySelector('input')
+    const filteredList = component.container.querySelector('ul')
+    const listCounter = component.container.querySelector('#list-counter')
+
+    fireEvent.keyUp(input, {target: {value: 'budden'}})
+
+    expect(input.value).toBe('budden')
+    expect(filteredList.childElementCount).toBe(1)
+    expect(listCounter).toHaveTextContent(filteredList.childElementCount)
   })
+
 })

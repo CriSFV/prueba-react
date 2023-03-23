@@ -21,7 +21,7 @@ const PodcastCard = (props) => {
   )
 }
 PodcastCard.propTypes = {
-  podcast: PropTypes.object.isRequired,
+  podcast: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
 export default PodcastCard
