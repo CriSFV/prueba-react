@@ -16,9 +16,12 @@ const PodcastDetail = (props) => {
   }, [loading]);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     setPodcastToRender(cache.get(`podcast_${podcast.id}`, null));
+    console.log(podcast.id,podcastToRender);
     if (podcastToRender === null) {
+      console.log('podcastToRender es null');
+      setLoading(true);
       getApiInfo.getPodcastInfo(podcast.id).then((resp) => {
         setPodcastToRender(resp);
         cache.set(`podcast_${podcast.id}`, resp);

@@ -10,15 +10,19 @@ export default function Podcast (){
   const { id }= router.query
   const [idPodcast, setIdPodcast]=useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [posdcastDetail, setPodcastDetail] = useState([])
+
   useEffect(()=>{
+    setIsLoading(false)
     setIdPodcast(cache.get('podcastSelected',null))
   },[id])
+  
   const handleLoading = (ev) =>{
+    console.log('cambia:', ev)
     setIsLoading(ev);
   }
+  console.log(isLoading);
   return (
-    <Layout isLoading={isLoading} >
+    <Layout isLoading={isLoading} title={'Episodes | Podcast'}>
       <PodcastDetail idPodcast={idPodcast} handleLoading={handleLoading}/>
     </Layout>
   )

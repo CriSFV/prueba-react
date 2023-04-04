@@ -42,5 +42,6 @@ export default function Layout({ children, title, description, isLoading }) {
 
 Layout.defaultProps = {
 	title:'Podcast Web',
-	description:'Podcast Web Site'
+	description:'Podcast Web Site',
+  isLoading: false
 }

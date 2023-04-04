@@ -1,13 +1,9 @@
-// import '../src/styles/App.sass';
+
 import Layout from "../components/Layout";
 import { useEffect, useState } from 'react';
-// import { Link, Route, Routes } from 'react-router-dom';
 import getApiInfo from '../src/services/api';
 import cache from '../src/services/cache'
 import Home from './Home';
-// import Loader from './Loader';
-// import PodcastDetail from './PodcastDetail';
-// import EpisodeDetail from './EpisodeDetail';
 
 function App() {
   const [data, setData] = useState([]);
@@ -58,18 +54,6 @@ function App() {
     <Layout isLoading={isLoading}>
       <div className='ppal_container'>
         <Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>
-        {/* <header>
-          <div className='loader__container'>{Loading()}</div>
-          <nav>
-            <Link to='/' className="title">Podcaster</Link>
-          </nav>
-          <hr className='separator'/>
-        </header> */}
-        {/* <Routes>
-          <Route path='/' element={<Home data={podcastFiltered} handleSearch={handleSearch} handleUserSelect={handleUserSelect}/>}/>
-          <Route path='/podcast/:podcastId' element={<PodcastDetail podcast={podcast} handleLoading={handleLoading}/>}  />
-            <Route path='/podcast/:podcastId/episode/:episodeId' element={<EpisodeDetail/>} />
-        </Routes> */}
       </div>
     </Layout>
   );

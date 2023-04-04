@@ -7,11 +7,17 @@ import styles from '../styles/PodcastDetail.module.sass'
 const EpisodeDetail = (props) =>{
   const podcast = cache.get('podcastSelected')
   const [episode, setEpisode] = useState({})
-  const {id, trackId} = props
+  const {id, trackId, handleLoading} = props
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    handleLoading(loading); // eslint-disable-next-line
+  }, [loading]);
 
   useEffect(() => {
     const episode0 = cache.get(`podcast_${id}`) ? cache.get(`podcast_${id}`).filter(x => x.trackId === parseInt(trackId) ) : ''
     setEpisode(episode0[0])
+    setLoading(false)
 },[id,trackId]);
 
   const printDescriptionEpisode = (description) => {
