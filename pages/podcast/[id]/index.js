@@ -1,8 +1,8 @@
-import Layout from "../../components/Layout"
+import Layout from "../../../components/Layout"
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react"
-import cache from '../../src/services/cache'
-import PodcastDetail from "../../components/PodcastDetail"
+import cache from '../../../src/services/cache'
+import PodcastDetail from "../../../components/PodcastDetail"
 
 
 export default function Podcast (){
