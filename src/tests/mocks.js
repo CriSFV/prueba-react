@@ -13,7 +13,7 @@ const mockPodcastList = [{
     summary: "Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends."
   }]
 
-  const mockPodcastDetail = 
+  const mockPodcastSelected = 
     {
       description: "The Bionic Six is back in full swing as the gang begins this episode with new music including T-Pain’s cover album (12:15). The JBP then addresses the recent Adam22 allegations and multiple No Jumper firings (52:43), Ja Morant sits down with Jalen Rose for an interview (1:11:34), and Ciara’s dress at the Vanity Fair Oscar Party creates debate (1:18:02). Also, Blac Chyna gets her fillers removed (1:36:34), Part of the Show (1:54:00), + MORE! \n Become a Patron of The Joe Budden Podcast for additional bonus episodes and visual content for all things JBP.: Tap in here www.patreon.com/JoeBudden\n  \n Sleeper Picks:\n Joe | ELHAE - “Secrets”\n Ice | Rucci & Bankroll Got It - “Can’t Trust It”\n Parks | GREA8GAWD (feat. Hell Rell) - “Entitled)\n Ish | Saint Harison - “TMF”\n Melyssa | Monsune - “Cloud”\n Flip | Ariaa - “Brown Skin”",
       episodeUrl:"https://traffic.libsyn.com/secure/jbpod/Joe_Budden_Podcast_610.mp3?dest-id=2422538",
@@ -24,7 +24,7 @@ const mockPodcastList = [{
       wrapperType: "podcastEpisode"
     }
   
-  const mockPodcastSelected = [
+  const mockPodcastDetail = [
     {
       description: "The Bionic Six is back in full swing as the gang begins this episode with new music including T-Pain’s cover album (12:15). The JBP then addresses the recent Adam22 allegations and multiple No Jumper firings (52:43), Ja Morant sits down with Jalen Rose for an interview (1:11:34), and Ciara’s dress at the Vanity Fair Oscar Party creates debate (1:18:02). Also, Blac Chyna gets her fillers removed (1:36:34), Part of the Show (1:54:00), + MORE! \n Become a Patron of The Joe Budden Podcast for additional bonus episodes and visual content for all things JBP.: Tap in here www.patreon.com/JoeBudden\n  \n Sleeper Picks:\n Joe | ELHAE - “Secrets”\n Ice | Rucci & Bankroll Got It - “Can’t Trust It”\n Parks | GREA8GAWD (feat. Hell Rell) - “Entitled)\n Ish | Saint Harison - “TMF”\n Melyssa | Monsune - “Cloud”\n Flip | Ariaa - “Brown Skin”",
       episodeUrl: "https://traffic.libsyn.com/secure/jbpod/Joe_Budden_Podcast_610.mp3?dest-id=2422538",
