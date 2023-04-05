@@ -27,9 +27,7 @@ const EpisodeDetail = (props) => {
   }, [id, trackId]);
 
   const printDescriptionEpisode = (description) => {
-    // const content = { __html: description };
     const descripcion = document.querySelector('#paragraph')
-    // return <span dangerouslySetInnerHTML={content}></span>;
      descripcion ? descripcion.innerHTML = description : null
   };
 
