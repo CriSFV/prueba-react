@@ -27,8 +27,11 @@ const EpisodeDetail = (props) => {
   }, [id, trackId]);
 
   const printDescriptionEpisode = (description) => {
-    const descripcion = document.querySelector('#paragraph')
-     descripcion ? descripcion.innerHTML = description : null
+    const descripcion = document.createElement('p')
+    if(descripcion){
+      descripcion.innerHTML = description 
+      return descripcion.innerHTML 
+    }
   };
 
   return (
@@ -36,7 +39,7 @@ const EpisodeDetail = (props) => {
       <PodcastCard podcast={podcast} />
       <section className={styles.podcast}>
         <h2>{episode ? episode.trackName : ""}</h2>
-        <p id="paragraph">{printDescriptionEpisode(episode ? episode.description : "")}</p>
+        {printDescriptionEpisode(episode ? episode.description : "")}
         <audio
           className={styles.Podcastaudio__controls}
           src={episode ? episode.episodeUrl : ""}
