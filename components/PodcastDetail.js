@@ -9,7 +9,8 @@ import Link from "next/link";
 const PodcastDetail = (props) => {
   const [podcastToRender, setPodcastToRender] = useState([]);
   const [loading, setLoading] = useState(true);
-  const podcast = props.idPodcast;
+  const podcast = cache.get('podcastSelected',null);
+
   const { handleLoading } = props;
   useEffect(() => {
     handleLoading(loading); // eslint-disable-next-line
@@ -17,11 +18,12 @@ const PodcastDetail = (props) => {
 
   useEffect(() => {
     setLoading(false);
-    setPodcastToRender(cache.get(`podcast_${podcast.id}`, null));
-    console.log(podcast.id,podcastToRender);
-    if (podcastToRender === null) {
-      console.log('podcastToRender es null');
+    console.log('podcast desde PodcastDetail', podcast);
+    setPodcastToRender(cache.get(`podcast_${podcast.id}`, []));
+    console.log('podcastToRender antes del if', podcastToRender)
+    if (podcastToRender.length === 0) {
       setLoading(true);
+      console.log('podcastToRender es null');
       getApiInfo.getPodcastInfo(podcast.id).then((resp) => {
         setPodcastToRender(resp);
         cache.set(`podcast_${podcast.id}`, resp);
@@ -30,7 +32,7 @@ const PodcastDetail = (props) => {
     } else {
       setLoading(false);
     }
-  }, [podcast]);
+  }, []);
 
   const convertTime = (seconds) => {
     let hour = Math.floor(seconds / 3600);

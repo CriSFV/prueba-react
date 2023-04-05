@@ -4,6 +4,7 @@ import styles from "../styles/Layout.module.sass"
 import Loader from "./Loader"
 
 export default function Layout({ children, title, description, isLoading }) {
+  console.log('loading:', isLoading)
   const Loading = () =>{
     if(isLoading){
       return (

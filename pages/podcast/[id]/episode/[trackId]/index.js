@@ -1,7 +1,7 @@
 import Layout from "../../../../../components/Layout"
 import { useRouter } from 'next/router'
 import EpisodeDetail from "../../../../../components/EpisodeDetail"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 
 

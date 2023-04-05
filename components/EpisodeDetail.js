@@ -2,13 +2,17 @@ import PodcastCard from './PodcastCard';
 import cache from '../src/services/cache';
 import { useEffect, useState } from 'react';
 import styles from '../styles/PodcastDetail.module.sass'
+import { useRouter } from 'next/router';
 
 
 const EpisodeDetail = (props) =>{
   const podcast = cache.get('podcastSelected')
   const [episode, setEpisode] = useState({})
-  const {id, trackId, handleLoading} = props
+  const { handleLoading} = props
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
+  const {id, trackId}= router.query
+  console.log('router', router)
   
   useEffect(() => {
     handleLoading(loading); // eslint-disable-next-line
@@ -16,9 +20,13 @@ const EpisodeDetail = (props) =>{
 
   useEffect(() => {
     const episode0 = cache.get(`podcast_${id}`) ? cache.get(`podcast_${id}`).filter(x => x.trackId === parseInt(trackId) ) : ''
+    if(cache.get(`podcast_${id}`)){
+      console.log(cache.get(`podcast_${id}`)[0].trackId, parseInt(trackId));
+      console.log(cache.get(`podcast_${id}`).filter(x => x.trackId === parseInt(trackId)))
+    }
     setEpisode(episode0[0])
     setLoading(false)
-},[id,trackId]);
+  },[id,trackId]);
 
   const printDescriptionEpisode = (description) => {
     const content = {__html: description}

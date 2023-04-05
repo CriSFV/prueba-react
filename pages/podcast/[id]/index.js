@@ -8,12 +8,12 @@ import PodcastDetail from "../../../components/PodcastDetail"
 export default function Podcast (){
   const router = useRouter()
   const { id }= router.query
-  const [idPodcast, setIdPodcast]=useState({});
+  // const [podcastSelected, setPodcastSelected]=useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(()=>{
     setIsLoading(false)
-    setIdPodcast(cache.get('podcastSelected',null))
+    // setPodcastSelected(cache.get('podcastSelected',null))
   },[id])
   
   const handleLoading = (ev) =>{
@@ -23,7 +23,7 @@ export default function Podcast (){
   console.log(isLoading);
   return (
     <Layout isLoading={isLoading} title={'Episodes | Podcast'}>
-      <PodcastDetail idPodcast={idPodcast} handleLoading={handleLoading}/>
+      <PodcastDetail handleLoading={handleLoading}/>
     </Layout>
   )
 }

@@ -1,6 +1,7 @@
-
+'use client'
 // Función que obtiene una propiedad del local storage
 const get = (key, defaultValue) => {
+  console.log('key que recibe el localStorage',key)
     const localStorageData = localStorage.getItem(key);
     if (localStorageData === null) {
       return defaultValue;
