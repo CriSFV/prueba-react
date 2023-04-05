@@ -15,7 +15,7 @@ const Home = (props) => {
       <section className={styles.searcher}>
         <span
           id="list-counter"
-          role="list-counter"
+          data-testid="list-counter"
           className={`${
             props.data.length > 0 ? styles.searcher__results : ""
           } flex_column_center`}
@@ -25,7 +25,6 @@ const Home = (props) => {
         <form action="">
           <label htmlFor="search" />
           <input
-            role="searcher"
             id="search"
             className={styles.searcher__input}
             type="text"

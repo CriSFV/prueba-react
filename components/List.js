@@ -37,7 +37,7 @@ const List = (props) => {
   };
   return (
     <section>
-      <ul role="ul" className={styles.list}>
+      <ul className={styles.list}>
         {printList()}
       </ul>
     </section>

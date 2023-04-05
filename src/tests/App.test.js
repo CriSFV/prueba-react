@@ -67,8 +67,8 @@ describe("input filter", () => {
     const userSearch = jest.fn();
 
     render(<App userSearch={userSearch} />);
-    const input = screen.getByRole("searcher")
-    const listCounter = screen.getByRole("list-counter");
+    const input = screen.getByPlaceholderText("Filter podcast")
+    const listCounter = screen.getByTestId("list-counter");
 
     fireEvent.keyUp(input, { target: { value: "budden" } });
 

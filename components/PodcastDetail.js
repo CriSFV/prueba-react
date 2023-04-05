@@ -17,9 +17,8 @@ const PodcastDetail = (props) => {
   }, [loading]);
 
   useEffect(() => {
-    setPodcastToRender(cache.get(`podcast_${podcast.id}`, []));
-
-    if (podcastToRender.length === 0) {
+    const podcastList = cache.get(`podcast_${podcast.id}`, [])
+    if (podcastList.length === 0) {
       setLoading(true);
       getApiInfo.getPodcastInfo(podcast.id).then((resp) => {
         setPodcastToRender(resp);
@@ -27,9 +26,10 @@ const PodcastDetail = (props) => {
         setLoading(false);
       });
     } else {
+      setPodcastToRender(podcastList);
       setLoading(false);
     }
-  }, []);
+  }, [podcast.id]);
 
   const convertTime = (seconds) => {
     let hour = Math.floor(seconds / 3600);
