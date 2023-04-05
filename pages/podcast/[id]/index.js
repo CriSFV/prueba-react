@@ -1,9 +1,8 @@
 import Layout from "../../../components/Layout"
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react"
-import cache from '../../../src/services/cache'
 import PodcastDetail from "../../../components/PodcastDetail"
-
+import cache from '../../../src/services/cache'
 
 export default function Podcast (){
   const router = useRouter()
@@ -12,15 +11,13 @@ export default function Podcast (){
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(()=>{
-    setIsLoading(false)
+    setIsLoading(cache.get('podcastSelected') ? false : true)
     // setPodcastSelected(cache.get('podcastSelected',null))
   },[id])
   
   const handleLoading = (ev) =>{
-    console.log('cambia:', ev)
     setIsLoading(ev);
   }
-  console.log(isLoading);
   return (
     <Layout isLoading={isLoading} title={'Episodes | Podcast'}>
       <PodcastDetail handleLoading={handleLoading}/>

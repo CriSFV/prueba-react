@@ -1,17 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
-import styles from "../styles/Layout.module.sass"
-import Loader from "./Loader"
+import styles from "../styles/Layout.module.sass";
+import Loader from "./Loader";
 
 export default function Layout({ children, title, description, isLoading }) {
-  console.log('loading:', isLoading)
-  const Loading = () =>{
-    if(isLoading){
-      return (
-        <Loader/>
-      )
+  const Loading = () => {
+    if (isLoading) {
+      return <Loader />;
     }
-  }
+  };
   const HeadPage = () => {
     return (
       <Head>
@@ -28,13 +25,13 @@ export default function Layout({ children, title, description, isLoading }) {
     <div className={styles.ppal_container}>
       <HeadPage />
       <header>
-				<div className={styles.loader__container}>{Loading()}</div>
+        <div className={styles.loader__container}>{Loading()}</div>
         <nav>
           <Link href={"/"} className={styles.title}>
             Podcaster
           </Link>
         </nav>
-				<hr className={styles.separator}/>
+        <hr className={styles.separator} />
       </header>
       <main>{children}</main>
     </div>
@@ -42,7 +39,7 @@ export default function Layout({ children, title, description, isLoading }) {
 }
 
 Layout.defaultProps = {
-	title:'Podcast Web',
-	description:'Podcast Web Site',
-  isLoading: false
-}
+  title: "Podcast Web",
+  description: "Podcast Web Site",
+  isLoading: false,
+};

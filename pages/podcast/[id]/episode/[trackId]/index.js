@@ -12,7 +12,6 @@ export default function Episode (){
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLoading = (ev) =>{
-    console.log('cambia:', ev)
     setIsLoading(ev);
   }
   return (

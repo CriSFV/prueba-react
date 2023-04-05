@@ -68,13 +68,12 @@ describe("input filter", () => {
 
     render(<App userSearch={userSearch} />);
     const input = screen.getByRole("searcher")
-    const filteredList = screen.getByRole("ul");
     const listCounter = screen.getByRole("list-counter");
 
     fireEvent.keyUp(input, { target: { value: "budden" } });
 
     expect(input.value).toBe("budden");
-    expect(filteredList.childElementCount).toBe(1);
-    expect(listCounter).toHaveTextContent(filteredList.childElementCount);
+    expect(screen.getByText("The Joe Budden Podcast")).toBeInTheDocument()
+    expect(listCounter).toHaveTextContent(1);
   });
 });

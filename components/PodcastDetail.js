@@ -9,7 +9,7 @@ import Link from "next/link";
 const PodcastDetail = (props) => {
   const [podcastToRender, setPodcastToRender] = useState([]);
   const [loading, setLoading] = useState(true);
-  const podcast = cache.get('podcastSelected',null);
+  const podcast = cache.get("podcastSelected", null);
 
   const { handleLoading } = props;
   useEffect(() => {
@@ -17,13 +17,10 @@ const PodcastDetail = (props) => {
   }, [loading]);
 
   useEffect(() => {
-    setLoading(false);
-    console.log('podcast desde PodcastDetail', podcast);
     setPodcastToRender(cache.get(`podcast_${podcast.id}`, []));
-    console.log('podcastToRender antes del if', podcastToRender)
+
     if (podcastToRender.length === 0) {
       setLoading(true);
-      console.log('podcastToRender es null');
       getApiInfo.getPodcastInfo(podcast.id).then((resp) => {
         setPodcastToRender(resp);
         cache.set(`podcast_${podcast.id}`, resp);
