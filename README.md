@@ -16,7 +16,7 @@ Para ello deberás descargarte el proyecto y ejecutar
 
 y a continuación
 
-### `npm start`
+### `npm run dev`
 
 Se abrirá tu navegador en [http://localhost:3000](http://localhost:3000) para verlo.\
 
@@ -30,4 +30,14 @@ Se debe ejecutar
 
 Este comando, compila la aplicación para producción en la carpeta `build`. \
 Agrupa en modo de producción y optimiza la compilación para obtener el mejor rendimiento
+
+y a continuación
+
+### `npm run start`
+
+
+## Para ejecutar los test:
+
+### `npm run test`
+
 

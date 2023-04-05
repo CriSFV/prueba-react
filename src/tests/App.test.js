@@ -3,7 +3,7 @@ import ls from "../services/cache";
 import mockPodcast from "./mocks";
 import App from "../../components/App";
 import EpisodeDetail from "../../components/EpisodeDetail";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 jest.mock("../services/api", () => ({
   getPodcasts: jest.fn(),
@@ -26,23 +26,23 @@ jest.mock("next/router", () => ({
 
 describe("print list", () => {
   beforeEach(() => {
-    getApiInfo.getPodcasts.mockClear(),
-      getApiInfo.getPodcastInfo.mockClear(),
-      ls.get.mockClear();
+    getApiInfo.getPodcasts.mockClear()
+    getApiInfo.getPodcastInfo.mockClear()
+    ls.get.mockClear()
   });
 
   afterEach(() => {
-    getApiInfo.getPodcasts.mockRestore(),
-      getApiInfo.getPodcastInfo.mockRestore(),
-      ls.get.mockRestore();
+    getApiInfo.getPodcasts.mockRestore()
+    getApiInfo.getPodcastInfo.mockRestore()
+    ls.get.mockRestore();
   });
 
   test("return list", async () => {
     getApiInfo.getPodcasts.mockResolvedValue(mockPodcast.mockPodcastList);
     ls.get.mockReturnValue(mockPodcast.mockPodcastList);
-    const component = render(<App />);
+    const view = render(<App />);
 
-    expect(component.container).toHaveTextContent(
+    expect(view.container).toHaveTextContent(
       mockPodcast.mockPodcastList[1].author
     );
   });
@@ -52,8 +52,8 @@ describe("print list", () => {
     getApiInfo.getPodcastInfo.mockReturnValue(mockPodcast.mockPodcastSelected);
 
     const handleLoading = jest.fn();
-    const component = render(<EpisodeDetail handleLoading={handleLoading} />);
-    expect(component.container).toHaveTextContent(
+    const view = render(<EpisodeDetail handleLoading={handleLoading} />);
+    expect(view.container).toHaveTextContent(
       mockPodcast.mockPodcastSelected.trackName
     );
   });
@@ -66,10 +66,10 @@ describe("input filter", () => {
 
     const userSearch = jest.fn();
 
-    const component = render(<App userSearch={userSearch} />);
-    const input = component.container.querySelector("input");
-    const filteredList = component.container.querySelector("ul");
-    const listCounter = component.container.querySelector("#list-counter");
+    render(<App userSearch={userSearch} />);
+    const input = screen.getByRole("searcher")
+    const filteredList = screen.getByRole("ul");
+    const listCounter = screen.getByRole("list-counter");
 
     fireEvent.keyUp(input, { target: { value: "budden" } });
 
