@@ -5,7 +5,6 @@ import styles from "../styles/PodcastDetail.module.sass";
 import { useRouter } from "next/router";
 
 const EpisodeDetail = (props) => {
-  const podcast = cache.get("podcastSelected");
   const [episode, setEpisode] = useState({});
   const { handleLoading } = props;
   const [loading, setLoading] = useState(true);
@@ -17,26 +16,29 @@ const EpisodeDetail = (props) => {
   }, [loading]);
 
   useEffect(() => {
-    const episode0 = cache.get(`podcast_${id}`)
+    const episodeToRender = cache.get(`podcast_${id}`)
       ? cache
           .get(`podcast_${id}`)
           .filter((x) => x.trackId === parseInt(trackId))
       : "";
-    setEpisode(episode0[0]);
+    setEpisode(episodeToRender[0]);
     setLoading(false);
   }, [id, trackId]);
 
   const printDescriptionEpisode = (description) => {
-    const descripcion = document.createElement('p')
-    if(descripcion){
-      descripcion.innerHTML = description 
-      return descripcion.innerHTML 
-    }
+    // const descripcion = document && document.createElement('p')
+    // if(descripcion){
+    //   descripcion.innerHTML = description
+    //   return descripcion.innerHTML
+    // }
+    const content = { __html: description };
+
+    return <span dangerouslySetInnerHTML={content}></span>;
   };
 
   return (
     <div className={styles.podcastDetail__container}>
-      <PodcastCard podcast={podcast} />
+      <PodcastCard podcastId={id} />
       <section className={styles.podcast}>
         <h2>{episode ? episode.trackName : ""}</h2>
         {printDescriptionEpisode(episode ? episode.description : "")}

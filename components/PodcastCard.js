@@ -1,43 +1,50 @@
 import PropTypes from "prop-types";
 import Link from "next/link";
 import styles from "../styles/PodcastDetail.module.sass";
+import { useState, useEffect } from "react";
+import cache from "../src/services/cache";
+import { useRouter } from "next/router";
 
-const PodcastCard = (props) => {
+const PodcastCard = () => {
+  const [podcast, setPodcast] = useState();
+  const router = useRouter();
+  const podcastId = router.query.id;
+  useEffect(() => {
+    setPodcast(cache.get("podcastSelected", null));
+  }, []);
+
   return (
-    <section className={styles.podcast}>
-      <div className={styles.podcast__img}>
-        <Link href={`/podcast/${props.podcast.id}`}>
-          <img src={props.podcast.img} alt={`imagen_ ${props.podcast.title}`} />
-        </Link>
-      </div>
-      <hr />
-      <div className={styles.podcast__text}>
-        <h4 className={styles.podcast__title}>
-          <Link href={`/podcast/${props.podcast.id}`}>
-            {props.podcast.title}
+    podcast && (
+      <section className={styles.podcast}>
+        <div className={styles.podcast__img}>
+          <Link href={`/podcast/${podcastId}`}>
+            <img src={podcast.img} alt={`imagen_ ${podcast.title}`} />
           </Link>
-        </h4>
-        <span className={styles.podcast__author}>
-          <i>
-            {" "}
-            by
-            <Link href={`/podcast/${props.podcast.id}`}>
+        </div>
+        <hr />
+        <div className={styles.podcast__text}>
+          <h4 className={styles.podcast__title}>
+            <Link href={`/podcast/${podcastId}`}>{podcast.title}</Link>
+          </h4>
+          <span className={styles.podcast__author}>
+            <i>
               {" "}
-              {props.podcast.author}{" "}
-            </Link>
-          </i>
-        </span>
-      </div>
-      <hr />
-      <div className={styles.podcast__text}>
-        <h4>
-          <b>Description:</b>
-        </h4>
-        <span>
-          <i> {props.podcast.summary} </i>
-        </span>
-      </div>
-    </section>
+              by
+              <Link href={`/podcast/${podcastId}`}> {podcast.author} </Link>
+            </i>
+          </span>
+        </div>
+        <hr />
+        <div className={styles.podcast__text}>
+          <h4>
+            <b>Description:</b>
+          </h4>
+          <span>
+            <i> {podcast.summary} </i>
+          </span>
+        </div>
+      </section>
+    )
   );
 };
 PodcastCard.propTypes = {

@@ -7,7 +7,6 @@ import Home from "./Home";
 function App() {
   const [data, setData] = useState([]);
   const [userSearch, setUserSearch] = useState("");
-  // const [podcast, setPodcast] = useState(''); // podcast user selected
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -39,8 +38,7 @@ function App() {
   // receive podcast user selection
   const handleUserSelect = (ev) => {
     const podcast = data.find((pod) => pod.id === ev);
-    cache.set("podcastSelected", podcast);
-    // setPodcast(podcast)
+    podcast && cache.set("podcastSelected", podcast);
   };
 
   const podcastFiltered =

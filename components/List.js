@@ -1,4 +1,3 @@
-// import '../styles/List.sass';
 import PropTypes from "prop-types";
 import Link from "next/link";
 import styles from "../styles/List.module.sass";

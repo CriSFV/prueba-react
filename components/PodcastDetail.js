@@ -5,31 +5,33 @@ import { useEffect, useState } from "react";
 import getApiInfo from "../src/services/api";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const PodcastDetail = (props) => {
   const [podcastToRender, setPodcastToRender] = useState([]);
   const [loading, setLoading] = useState(true);
-  const podcast = cache.get("podcastSelected", null);
-
   const { handleLoading } = props;
+  const router = useRouter();
+  const podcastId = router.query.id;
+
   useEffect(() => {
     handleLoading(loading); // eslint-disable-next-line
   }, [loading]);
 
   useEffect(() => {
-    const podcastList = cache.get(`podcast_${podcast.id}`, [])
+    const podcastList = cache.get(`podcast_${podcastId}`, []);
     if (podcastList.length === 0) {
       setLoading(true);
-      getApiInfo.getPodcastInfo(podcast.id).then((resp) => {
+      getApiInfo.getPodcastInfo(podcastId).then((resp) => {
         setPodcastToRender(resp);
-        cache.set(`podcast_${podcast.id}`, resp);
+        podcastId && cache.set(`podcast_${podcastId}`, resp);
         setLoading(false);
       });
     } else {
       setPodcastToRender(podcastList);
       setLoading(false);
     }
-  }, [podcast.id]);
+  }, [podcastId]);
 
   const convertTime = (seconds) => {
     let hour = Math.floor(seconds / 3600);
@@ -54,7 +56,7 @@ const PodcastDetail = (props) => {
           >
             <td>
               <Link
-                href={`/podcast/${podcast.id}/episode/${episode.trackId}`}
+                href={`/podcast/${podcastId}/episode/${episode.trackId}`}
                 className="list-decoration-none"
               >
                 {episode.trackName}
@@ -71,7 +73,7 @@ const PodcastDetail = (props) => {
 
   return (
     <div className={styles.podcastDetail__container}>
-      <PodcastCard podcast={podcast} />
+      <PodcastCard podcastId={podcastId} />
       <section>
         <h2 className={`box-shadow ${styles.detail__episodes}`}>
           Episodes: {podcastToRender?.length ? podcastToRender.length - 1 : "-"}{" "}
