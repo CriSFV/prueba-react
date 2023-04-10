@@ -3,6 +3,7 @@ import cache from "../src/services/cache";
 import { useEffect, useState } from "react";
 import styles from "../styles/PodcastDetail.module.sass";
 import { useRouter } from "next/router";
+import sanitizeHTML from "sanitize-html";
 
 const EpisodeDetail = (props) => {
   const [episode, setEpisode] = useState({});
@@ -26,14 +27,7 @@ const EpisodeDetail = (props) => {
   }, [id, trackId]);
 
   const printDescriptionEpisode = (description) => {
-    // const descripcion = document && document.createElement('p')
-    // if(descripcion){
-    //   descripcion.innerHTML = description
-    //   return descripcion.innerHTML
-    // }
-    const content = { __html: description };
-
-    return <span dangerouslySetInnerHTML={content}></span>;
+    return sanitizeHTML(description);
   };
 
   return (
@@ -41,7 +35,9 @@ const EpisodeDetail = (props) => {
       <PodcastCard podcastId={id} />
       <section className={styles.podcast}>
         <h2>{episode ? episode.trackName : ""}</h2>
-        {printDescriptionEpisode(episode ? episode.description : "")}
+        <p id="episodeDescription">
+          {printDescriptionEpisode(episode ? episode.description : "")}
+        </p>
         <audio
           className={styles.Podcastaudio__controls}
           src={episode ? episode.episodeUrl : ""}
