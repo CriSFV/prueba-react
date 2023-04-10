@@ -4,17 +4,13 @@ import { useEffect, useState } from "react";
 import styles from "../styles/PodcastDetail.module.sass";
 import { useRouter } from "next/router";
 import sanitizeHTML from "sanitize-html";
+import Layout from "./Layout";
 
-const EpisodeDetail = (props) => {
+const EpisodeDetail = () => {
   const [episode, setEpisode] = useState({});
-  const { handleLoading } = props;
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { id, trackId } = router.query;
-
-  useEffect(() => {
-    handleLoading(loading); // eslint-disable-next-line
-  }, [loading]);
 
   useEffect(() => {
     const episodeToRender = cache.get(`podcast_${id}`)
@@ -31,6 +27,7 @@ const EpisodeDetail = (props) => {
   };
 
   return (
+    <Layout isLoading={loading} title={'Episode Detail | Podcast'}>
     <div className={styles.podcastDetail__container}>
       <PodcastCard podcastId={id} />
       <section className={styles.podcast}>
@@ -45,6 +42,7 @@ const EpisodeDetail = (props) => {
         ></audio>
       </section>
     </div>
+    </Layout>
   );
 };
 export default EpisodeDetail;

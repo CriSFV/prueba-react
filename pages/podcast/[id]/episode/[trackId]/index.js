@@ -1,4 +1,3 @@
-import Layout from "../../../../../components/Layout"
 import { useRouter } from 'next/router'
 import EpisodeDetail from "../../../../../components/EpisodeDetail"
 import { useState } from "react"
@@ -15,8 +14,6 @@ export default function Episode (){
     setIsLoading(ev);
   }
   return (
-    <Layout isLoading={isLoading} title={'Episode Detail | Podcast'}>
       <EpisodeDetail id={id} trackId={trackId} handleLoading={handleLoading}/>
-    </Layout>
   )
 }

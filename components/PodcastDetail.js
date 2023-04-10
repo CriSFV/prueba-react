@@ -3,20 +3,16 @@ import cache from "../src/services/cache";
 import PodcastCard from "./PodcastCard";
 import { useEffect, useState } from "react";
 import getApiInfo from "../src/services/api";
-import PropTypes from "prop-types";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Layout from "./Layout";
 
-const PodcastDetail = (props) => {
+
+const PodcastDetail = () => {
   const [podcastToRender, setPodcastToRender] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { handleLoading } = props;
   const router = useRouter();
   const podcastId = router.query.id;
-
-  useEffect(() => {
-    handleLoading(loading); // eslint-disable-next-line
-  }, [loading]);
 
   useEffect(() => {
     const podcastList = cache.get(`podcast_${podcastId}`, []);
@@ -72,6 +68,8 @@ const PodcastDetail = (props) => {
   };
 
   return (
+    <Layout isLoading={loading} title={"Episodes | Podcast"}>
+
     <div className={styles.podcastDetail__container}>
       <PodcastCard podcastId={podcastId} />
       <section>
@@ -96,10 +94,8 @@ const PodcastDetail = (props) => {
         </table>
       </section>
     </div>
+    </Layout>
   );
-};
-PodcastDetail.propTypes = {
-  handleLoading: PropTypes.func.isRequired,
 };
 
 export default PodcastDetail;
